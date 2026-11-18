@@ -1,8 +1,8 @@
 // src/state.js
-// Manages the single learner state object and localStorage persistence for C4 (stop & resume)
+// Manages the single learner state object and localStorage persistence
 
 export const STORAGE_KEY = 'et617_24b1233_p4_state';
-export const TARGET_SESSION_STEPS = 5;
+export const THEME_KEY = 'et617_24b1233_theme';
 
 export function createInitialState() {
   return {
@@ -14,14 +14,25 @@ export function createInitialState() {
     diagnosticAnswers: {},
     profileLevel: 1,
     currentLevel: 1,
-    currentStepIndex: 0,
-    totalStepsCompleted: 0,
+    currentQuestionId: 'Q1-MARKET',
+    seenQuestionIds: [],
+    totalQuestionsSolved: 0,
     hintsUsedOnCurrent: 0,
+    wrongAttemptsOnCurrent: 0,
     consecutiveHint3Reveals: 0,
     consecutiveUnassistedCorrect: 0,
     inRecoveryMode: false,
+    recapTriggeredCount: 0,
+    generatedCounter: 0,
+    toolClicks: 0,
+    toolState: {
+      subject: 'My mother',
+      verbBase: 'buy',
+      timeMode: 'closed_past'
+    },
     retryQueue: [],
     misconceptionLog: { M1: 0, M2: 0, PREREQ: 0 },
+    lastTutorDecision: null,
     attemptHistory: []
   };
 }
@@ -31,7 +42,12 @@ export function loadState() {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return createInitialState();
     const parsed = JSON.parse(raw);
-    return { ...createInitialState(), ...parsed };
+    return {
+      ...createInitialState(),
+      ...parsed,
+      misconceptionLog: { ...createInitialState().misconceptionLog, ...(parsed.misconceptionLog || {}) },
+      toolState: { ...createInitialState().toolState, ...(parsed.toolState || {}) }
+    };
   } catch (err) {
     return createInitialState();
   }
@@ -58,4 +74,20 @@ export function clearSavedState() {
     // ignore storage errors
   }
   return createInitialState();
+}
+
+export function loadTheme() {
+  try {
+    return window.localStorage.getItem(THEME_KEY) || 'light';
+  } catch (err) {
+    return 'light';
+  }
+}
+
+export function saveTheme(theme) {
+  try {
+    window.localStorage.setItem(THEME_KEY, theme);
+  } catch (err) {
+    // ignore
+  }
 }

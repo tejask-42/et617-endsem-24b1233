@@ -1,13 +1,15 @@
 # Project State
 
-- **Clock:** 6:37 PM
-- **Current Stage:** Stage 3 -> Stage 4 (DESIGN.md & ARCHITECTURE.md complete; ready for Explain-Back Gate & Scaffold + First Live Deploy)
-- **Last Gate Passed:** Stage 0–2 (`P4 · P4-T7 · L1 · C4 · ID: 24b1233`, Persona Aarav, 3-step hint ladder + 3-way P4 decision rule locked)
+- **Clock:** 7:11 PM
+- **Current Stage:** Stage 5 Complete (Full 6-Screen Adaptive Loop Deployed) -> Stage 6 Testing & Polish + Stage 7 Report PDF & Viva Prep
+- **Last Gate Passed:** Slice 2 & 3 Complete (3 Question Formats, 2-Step Error Self-Identification, 3-Step Hint Ladder, Retry Queue, 3-Consecutive-Reveal Basic Recap & Level Step-Down, Interactive Time-Bridge Tool, Dark Mode)
 - **Done:**
-  - Wrote `DESIGN.md` (covering D1 Problem & 3 Outcomes, D2 Persona Aarav + M1/M2 misconceptions, D3 Content Plan & 3 Question Formats + Time-Bridge Tool T6, P4 3-Way Decision Rule with 3-hint ladder & 3-consecutive-reveal level step-down + 2-correct stabilization gate)
-  - Wrote `docs/ARCHITECTURE.md` (with "Where to change what" table) and `docs/DECISIONS.md`
-  - Committed and pushed `DESIGN.md` and `docs/` to `https://github.com/tejask-42/et617-endsem-24b1233`
-- **Next Action:** Pass quick Stage 3 Explain-Back Gate -> Build Stage 4 Scaffold + Core P4 Adaptive Tutor & deploy live to `https://et617-24b1233.netlify.app` before 7:00 PM
-- **Risks:** Need first live deployment online before 7:00 PM (22 minutes remaining)
+  - Added Dark Mode toggle (`data-theme="dark"` persisted in `localStorage`)
+  - Removed all internal planning labels (`Slice 1`, `C4`, `Step 0 of 5`) from learner-facing UI
+  - Built `src/pedagogy.js` implementing 3 formats (`mcq`, `builder`, `explanation`), 3-step hint ladder, retry-later queue, 3-consecutive-reveal level step-down + Basic Concepts Recap, and 2-unassisted-correct recovery gate
+  - Built rich everyday contexts in `src/content.js` + parameterized dynamic generator
+  - Built interactive Time-Bridge & Verb Explorer tool on Practice screen
+- **Next Action:** Push commit to GitHub & deploy to `https://et617-24b1233.netlify.app` -> User tests live app & suggests any tweaks -> Generate D1–D8 Report PDF with screenshots of both contrasting learner scenarios (D5)
+- **Risks:** 44 minutes until 7:55 PM Moodle submission window — plenty of time for testing, D5 screenshots, and PDF report generation
 - **Open Assumptions:** None
 - **Known Bugs:** None
