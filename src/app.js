@@ -21,6 +21,7 @@ import {
   PEDAGOGY_CONFIG,
   evaluateLearnerResponse,
   applyAdaptiveDecisionRule,
+  getQuestionById,
   selectNextQuestion,
   AI_FUNCTIONALITY_SPEC
 } from './pedagogy.js';
@@ -29,9 +30,12 @@ let appState = loadState();
 let currentTheme = loadTheme();
 
 // Transient UI state for the current active question
-let currentQuestion =
-  PRACTICE_QUESTION_BANK.find((q) => q.id === appState.currentQuestionId) ||
-  PRACTICE_QUESTION_BANK[0];
+let currentQuestion = getQuestionById(appState.currentQuestionId);
+
+// If page was reloaded after all 3 hints were already used, reset hint counter so the question is playable cleanly
+if (appState.hintsUsedOnCurrent >= PEDAGOGY_CONFIG.MAX_HINTS) {
+  appState.hintsUsedOnCurrent = 0;
+}
 
 let uiFormState = {
   selectedOptionId: null,
@@ -870,6 +874,13 @@ function renderPracticeScreen(root) {
         // Learner made an error -> encourage 2-step self-identification & add to retryQueue
         appState.wrongAttemptsOnCurrent += 1;
         uiFormState.selfIdentifiedWindow = null;
+
+        // If the learner makes 2 wrong attempts on the same question, auto-open the Sentence Guide
+        if (appState.wrongAttemptsOnCurrent >= 2 && !uiFormState.toolOpen) {
+          uiFormState.toolOpen = true;
+          appState.toolState.timeMode = q.expectedWindow || 'closed_past';
+          appState.toolClicks += 1;
+        }
 
         if (evalResult.tag && appState.misconceptionLog[evalResult.tag] !== undefined) {
           appState.misconceptionLog[evalResult.tag] += 1;

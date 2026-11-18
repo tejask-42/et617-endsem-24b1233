@@ -16,13 +16,18 @@ export const LEVEL_NAMES = {
 };
 
 export const VERB_STUDIO_BANK = [
+  { base: 'buy', past: 'bought', participle: 'bought', exampleObj: 'fresh tomatoes' },
+  { base: 'rain', past: 'rained', participle: 'rained', exampleObj: 'heavily outside' },
+  { base: 'arrive', past: 'arrived', participle: 'arrived', exampleObj: 'at the bus stop' },
+  { base: 'win', past: 'won', participle: 'won', exampleObj: 'the cricket match' },
+  { base: 'eat', past: 'ate', participle: 'eaten', exampleObj: 'my lunch' },
+  { base: 'repair', past: 'repaired', participle: 'repaired', exampleObj: 'the bicycle chain' },
+  { base: 'visit', past: 'visited', participle: 'visited', exampleObj: 'my grandmother\'s village' },
+  { base: 'lose', past: 'lost', participle: 'lost', exampleObj: 'the reading glasses' },
+  { base: 'submit', past: 'submitted', participle: 'submitted', exampleObj: 'our science notebook' },
   { base: 'finish', past: 'finished', participle: 'finished', exampleObj: 'my school homework' },
-  { base: 'lose', past: 'lost', participle: 'lost', exampleObj: 'the house key' },
   { base: 'clean', past: 'cleaned', participle: 'cleaned', exampleObj: 'the courtyard' },
-  { base: 'visit', past: 'visited', participle: 'visited', exampleObj: 'the weekly market' },
-  { base: 'go', past: 'went', participle: 'gone', exampleObj: 'to the bus stop' },
-  { base: 'eat', past: 'ate', participle: 'eaten', exampleObj: 'dinner' },
-  { base: 'buy', past: 'bought', participle: 'bought', exampleObj: 'fresh vegetables' },
+  { base: 'go', past: 'went', participle: 'gone', exampleObj: 'to the market' },
   { base: 'watch', past: 'watched', participle: 'watched', exampleObj: 'an English film on TV' }
 ];
 
@@ -126,7 +131,7 @@ export const PRACTICE_QUESTION_BANK = [
     correctAnswerText: 'has just rained',
     options: [
       { id: 'a', text: 'has just rained', isCorrect: true, tag: 'CORRECT' },
-      { id: 'b', text: 'just rained yesterday', isCorrect: false, tag: 'M2' },
+      { id: 'b', text: 'rained', isCorrect: false, tag: 'M2' },
       { id: 'c', text: 'have just rained', isCorrect: false, tag: 'PREREQ' }
     ],
     hints: [
@@ -151,7 +156,7 @@ export const PRACTICE_QUESTION_BANK = [
     timeCue: 'yet (we are waiting right now)',
     correctWindowChoice: 'bridge_now',
     correctVerbChoice: 'has not arrived',
-    verbChoices: ['did not arrive yesterday', 'has not arrived', 'have not arrived'],
+    verbChoices: ['did not arrive', 'has not arrived', 'have not arrived'],
     hints: [
       'Hint 1: Notice the word "yet" and "we are not late!" They are waiting at the bus stop right now.',
       'Hint 2: With "yet" connecting to right now, and singular "The school bus", use "has not + arrived".',
@@ -199,7 +204,7 @@ export const PRACTICE_QUESTION_BANK = [
     timeCue: 'I am full right now / already',
     correctWindowChoice: 'bridge_now',
     correctVerbChoice: 'have already eaten',
-    verbChoices: ['already ate yesterday', 'have already eaten', 'has already eaten'],
+    verbChoices: ['already ate', 'have already eaten', 'has already eaten'],
     hints: [
       'Hint 1: The speaker says "I am full right now" and uses "already". The meal explains why they feel full now.',
       'Hint 2: For "I" when the result matters right now, choose "Connected to Right Now" and "have + already + eaten".',
@@ -334,10 +339,10 @@ const DYNAMIC_TEMPLATES = [
     expectedWindow: 'closed_past',
     contextTitle: 'Evening Study Routine',
     subject: 'We',
-    verbBase: 'read',
-    verbPast: 'read (pronounced red)',
-    verbPerf: 'have read',
-    wrongPerfPlural: 'has read',
+    verbBase: 'finish',
+    verbPast: 'finished',
+    verbPerf: 'have finished',
+    wrongPerfPlural: 'has finished',
     objectText: 'that story chapter',
     timeMarker: 'yesterday afternoon'
   },
@@ -347,7 +352,7 @@ const DYNAMIC_TEMPLATES = [
     contextTitle: 'Ready for School',
     subject: 'Anita',
     verbBase: 'pack',
-    verbPast: 'packed yesterday',
+    verbPast: 'packed',
     verbPerf: 'has already packed',
     wrongPerfPlural: 'have already packed',
     objectText: 'her school bag, so she is ready to leave right now',
@@ -359,7 +364,7 @@ const DYNAMIC_TEMPLATES = [
     contextTitle: 'Cooking in the Kitchen',
     subject: 'Mother',
     verbBase: 'make',
-    verbPast: 'made last week',
+    verbPast: 'made',
     verbPerf: 'has just made',
     wrongPerfPlural: 'have just made',
     objectText: 'hot tea, and the cups are steaming on the tray right now',
@@ -373,7 +378,52 @@ export function generateDynamicQuestion(targetLevel, targetFocusArea, counter = 
   const isClosed = chosen.expectedWindow === 'closed_past';
   const id = `GEN-${targetLevel}-${chosen.focusArea}-${counter}`;
 
-  if (targetLevel >= 2) {
+  if (targetLevel >= 3) {
+    const flawed = isClosed
+      ? `${chosen.subject} ${chosen.verbPerf} ${chosen.objectText} ${chosen.timeMarker}.`
+      : `${chosen.subject} ${chosen.verbPast} ${chosen.objectText}.`;
+    const correctV = isClosed ? chosen.verbPast : chosen.verbPerf;
+    return {
+      id,
+      level: 3,
+      isGenerated: true,
+      format: 'explanation',
+      formatLabel: 'Spot & Explain the Error',
+      focusArea: chosen.focusArea,
+      expectedWindow: chosen.expectedWindow,
+      contextTitle: chosen.contextTitle,
+      flawedSentence: flawed,
+      prompt: `A student wrote: "${flawed}" Write the corrected verb and explain in one short sentence why it is needed here.`,
+      timeCue: chosen.timeMarker,
+      correctAnswerText: correctV,
+      acceptedVerbs: [correctV],
+      requiredConceptKeywords: isClosed
+        ? ['last', 'yesterday', 'finished', 'past', 'over', 'closed']
+        : ['now', 'already', 'just', 'still', 'result', 'present', 'ready', 'steaming'],
+      modelExplanation: isClosed
+        ? `We use "${correctV}" because "${chosen.timeMarker}" is a finished time in the past.`
+        : `We use "${correctV}" because the result still holds right now.`,
+      hints: [
+        `Hint 1: Look at the time clue "${chosen.timeMarker}". Is that time already finished, or does the result hold right now?`,
+        `Hint 2: The correct verb phrase is "${correctV}". In your explanation, mention why "${chosen.timeMarker}" is finished or connected to right now.`,
+        `Hint 3: Correct verb: "${correctV}". Explanation: ${
+          isClosed
+            ? `Because "${chosen.timeMarker}" is a finished past time, we use "${correctV}".`
+            : `Because the result is true right now, we use "${correctV}".`
+        }`
+      ],
+      selfCheckPrompt: `Look at "${chosen.timeMarker}". Does it describe a finished past time or something connected to right now?`,
+      selfCheckCorrectWindow: chosen.expectedWindow,
+      contrastChosenText: isClosed
+        ? `Using "${chosen.verbPerf}" clashes with the finished past time "${chosen.timeMarker}".`
+        : `Using "${chosen.verbPast}" misses the connection to what is true right now.`,
+      contrastTargetText: isClosed
+        ? `"${chosen.timeMarker}" is finished, so "${correctV}" is required.`
+        : `Because the result holds right now, "${correctV}" builds the bridge to now.`
+    };
+  }
+
+  if (targetLevel === 2) {
     return {
       id,
       level: targetLevel,

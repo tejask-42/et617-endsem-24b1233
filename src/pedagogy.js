@@ -220,13 +220,28 @@ export function applyAdaptiveDecisionRule(state, question, outcomeType) {
   return { nextState: next, routeToRecap: false };
 }
 
+export function getQuestionById(questionId) {
+  if (!questionId) return PRACTICE_QUESTION_BANK[0];
+  const fromBank = PRACTICE_QUESTION_BANK.find((q) => q.id === questionId);
+  if (fromBank) return fromBank;
+
+  if (questionId.startsWith('GEN-')) {
+    const parts = questionId.split('-');
+    const level = parseInt(parts[1], 10) || 1;
+    const focus = parts[2] || 'M1';
+    const counter = parseInt(parts[3], 10) || 1;
+    return generateDynamicQuestion(level, focus, counter);
+  }
+  return PRACTICE_QUESTION_BANK[0];
+}
+
 export function selectNextQuestion(state) {
   // 1. If retryQueue has an item that is not the exact item just completed, serve it after at least 1 other question
   if (state.retryQueue.length > 0) {
     const candidateRetryId = state.retryQueue.find((id) => id !== state.currentQuestionId) || state.retryQueue[0];
-    const fromBank = PRACTICE_QUESTION_BANK.find((q) => q.id === candidateRetryId);
-    if (fromBank && (state.retryQueue.length > 1 || state.currentQuestionId !== fromBank.id)) {
-      return { ...fromBank, isRetryItem: true };
+    const fromLookup = getQuestionById(candidateRetryId);
+    if (fromLookup && (state.retryQueue.length > 1 || state.currentQuestionId !== fromLookup.id)) {
+      return { ...fromLookup, isRetryItem: true };
     }
   }
 
@@ -246,7 +261,7 @@ export function selectNextQuestion(state) {
 
   // 4. If there is still a retry item waiting, serve it now
   if (state.retryQueue.length > 0) {
-    const retryQ = PRACTICE_QUESTION_BANK.find((q) => q.id === state.retryQueue[0]);
+    const retryQ = getQuestionById(state.retryQueue[0]);
     if (retryQ) return { ...retryQ, isRetryItem: true };
   }
 

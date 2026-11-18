@@ -1,10 +1,16 @@
 # TimeBridge English — Design Document
 
-## 1. Overview & Project Context
+## 1. Exam Card & Project Overview
+
+| Card Field | Selection | Description |
+| :--- | :--- | :--- |
+| **ID — Identity Token** | `24b1233` | Student Roll Number (shown in the footer of every screen and on the About screen) |
+| **P — Problem Statement** | `P4` | Adaptive tutor with automatic question generation |
+| **T — Topic** | `P4-T7` | English tenses: simple past vs present perfect (ESL) |
+| **L — Learner Context** | `L1` | Class 6–8 student in a rural government school, regional-language medium, uses a parent's Android phone for about 30 minutes in the evening |
+| **C — Design Constraint** | `C4` | 10-minute sessions (one complete learning sequence fits in 10 minutes; the learner can stop and resume where they left off) |
 
 - **Application Name:** TimeBridge English
-- **Student Roll Number:** `24b1233`
-- **Core Goal:** An adaptive English as a Second Language (ESL) tutor that helps middle-school learners tell the difference between **Simple Past** (actions completed in a finished past time) and **Present Perfect** (past actions whose result still matters right now).
 - **Repository:** `https://github.com/tejask-42/et617-endsem-24b1233`
 - **Live URL:** `https://et617-24b1233.netlify.app`
 
