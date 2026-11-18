@@ -256,7 +256,94 @@ p {
 .progress-bar-fill {
   height: 100%;
   background: var(--accent);
-  transition: width 0.25s ease;
+  transition: width 0.35s ease;
+}
+
+.buddy-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.buddy-avatar {
+  width: 68px;
+  height: 68px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--surface-muted);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.buddy-avatar.buddy-happy {
+  border-color: var(--ok-border);
+  background: var(--ok-bg);
+  animation: buddyBounce 0.6s ease;
+}
+
+.buddy-avatar.buddy-sad {
+  border-color: var(--warn-border);
+  background: var(--warn-bg);
+  animation: buddyTilt 0.45s ease;
+}
+
+@keyframes buddyBounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-7px) scale(1.05); }
+  70% { transform: translateY(-3px); }
+}
+
+@keyframes buddyTilt {
+  0%, 100% { transform: rotate(0deg); }
+  35% { transform: rotate(-7deg); }
+  70% { transform: rotate(5deg); }
+}
+
+.buddy-info {
+  flex: 1;
+}
+
+.buddy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.buddy-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.buddy-mood-text {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin: 0 0 0.45rem;
+}
+
+.energy-track {
+  width: 100%;
+  height: 10px;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.energy-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.35s ease;
 }
 
 .badge-row {

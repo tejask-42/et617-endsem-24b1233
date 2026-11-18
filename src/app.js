@@ -84,10 +84,7 @@ function setScreen(screenName) {
 function updateHeaderStatus() {
   const pill = document.getElementById('session-status-bar');
   if (pill) {
-    const recoveryNote = appState.inRecoveryMode
-      ? ` · Confidence Rebuild (${appState.consecutiveUnassistedCorrect}/${PEDAGOGY_CONFIG.RECOVERY_STREAK_REQUIRED})`
-      : '';
-    pill.textContent = `Level ${appState.currentLevel}${recoveryNote}`;
+    pill.textContent = `Level ${appState.currentLevel}`;
   }
 
   document.querySelectorAll('.nav-btn').forEach((btn) => {
@@ -345,12 +342,12 @@ function renderTimeBridgeToolHtml() {
       : `<strong>Bridge to Right Now:</strong> Because the result matters right now, "${subject}" uses <strong>${aux} + ${verbObj.participle} (V3)</strong>.`;
 
   return `
-    <div class="tool-panel" role="region" aria-label="Interactive Time-Bridge and Verb Explorer">
-      <h3>Interactive Helper: Time-Bridge &amp; Verb Explorer</h3>
-      <p>Test any person, everyday verb, and time frame below before answering your question:</p>
+    <div class="tool-panel" role="region" aria-label="Sentence Guide">
+      <h3>Sentence Guide</h3>
+      <p>Try any person, verb, and time below to see how the sentence works:</p>
       <div class="tool-Controls">
         <div>
-          <label class="builder-label" for="tool-subject-select">1. Choose Person (Subject)</label>
+          <label class="builder-label" for="tool-subject-select">1. Person</label>
           <select id="tool-subject-select" class="select-input">
             ${['I', 'We', 'They', 'My mother', 'Rohan', 'She'].map(
               (s) => `<option value="${s}" ${s === subject ? 'selected' : ''}>${s}</option>`
@@ -358,7 +355,7 @@ function renderTimeBridgeToolHtml() {
           </select>
         </div>
         <div>
-          <label class="builder-label" for="tool-verb-select">2. Choose Everyday Verb</label>
+          <label class="builder-label" for="tool-verb-select">2. Verb</label>
           <select id="tool-verb-select" class="select-input">
             ${VERB_STUDIO_BANK.map(
               (v) => `<option value="${v.base}" ${v.base === verbBase ? 'selected' : ''}>${v.base} (${v.past} / ${v.participle})</option>`
@@ -368,19 +365,19 @@ function renderTimeBridgeToolHtml() {
       </div>
 
       <div class="builder-group">
-        <span class="builder-label">3. Switch the Time Frame:</span>
+        <span class="builder-label">3. Time:</span>
         <div class="chip-row">
           <button type="button" class="chip-btn ${timeMode === 'closed_past' ? 'selected' : ''}" data-tool-mode="closed_past">
-            [Finished Past Time · Yesterday]
+            Finished Past Time (Yesterday)
           </button>
           <button type="button" class="chip-btn ${timeMode === 'bridge_now' ? 'selected' : ''}" data-tool-mode="bridge_now">
-            [Connected to Right Now · Present Result]
+            Connected to Right Now
           </button>
         </div>
       </div>
 
       <div class="cue-box">
-        <p><strong>Live Example Sentence:</strong> ${builtSentence}</p>
+        <p><strong>Example Sentence:</strong> ${builtSentence}</p>
         <p style="margin-bottom:0;">${explanationNote}</p>
       </div>
     </div>
@@ -576,6 +573,87 @@ function renderTwoStepErrorRepairHtml(q, evaluation) {
   `;
 }
 
+function renderStudyBuddyHtml() {
+  const evalObj = uiFormState.lastEvaluation;
+  let mood = 'neutral';
+  let moodText = 'Pip is ready to learn with you! Take your time.';
+
+  if (evalObj && evalObj.isCorrect) {
+    mood = 'happy';
+    moodText = 'Yay! Pip is jumping with joy — you got it right!';
+  } else if (evalObj && !evalObj.isCorrect) {
+    mood = 'sad';
+    moodText = 'Aww, Pip looks a little sad — let us check the clue together!';
+  } else if (appState.hintsUsedOnCurrent > 0) {
+    mood = 'neutral';
+    moodText = 'Pip fetched a helpful hint for you below!';
+  }
+
+  // SVG pet puppy face that reacts visibly to happy / sad / neutral states
+  const svgHtml =
+    mood === 'happy'
+      ? `
+      <svg width="50" height="50" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M10 24 C8 12, 18 10, 22 20" fill="#d97706" />
+        <path d="M54 24 C56 12, 46 10, 42 20" fill="#d97706" />
+        <circle cx="32" cy="34" r="18" fill="#fbbf24" stroke="#92400e" stroke-width="2.5" />
+        <path d="M23 30 Q26 25 29 30" fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" />
+        <path d="M35 30 Q38 25 41 30" fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" />
+        <ellipse cx="32" cy="36" rx="3.5" ry="2.5" fill="#1c1917" />
+        <path d="M24 41 Q32 49 40 41" fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" />
+        <path d="M30 44 Q32 50 34 44" fill="#ef4444" />
+      </svg>
+    `
+      : mood === 'sad'
+      ? `
+      <svg width="50" height="50" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M14 26 C6 34, 8 44, 16 38" fill="#d97706" />
+        <path d="M50 26 C58 34, 56 44, 48 38" fill="#d97706" />
+        <circle cx="32" cy="34" r="18" fill="#fbbf24" stroke="#92400e" stroke-width="2.5" />
+        <circle cx="26" cy="31" r="2.5" fill="#1c1917" />
+        <circle cx="38" cy="31" r="2.5" fill="#1c1917" />
+        <path d="M23 26 L28 28" stroke="#92400e" stroke-width="2" stroke-linecap="round" />
+        <path d="M41 26 L36 28" stroke="#92400e" stroke-width="2" stroke-linecap="round" />
+        <ellipse cx="32" cy="36" rx="3.2" ry="2.2" fill="#1c1917" />
+        <path d="M26 44 Q32 39 38 44" fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" />
+      </svg>
+    `
+      : `
+      <svg width="50" height="50" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M12 24 C10 15, 18 14, 21 22" fill="#d97706" />
+        <path d="M52 24 C54 15, 46 14, 43 22" fill="#d97706" />
+        <circle cx="32" cy="34" r="18" fill="#fbbf24" stroke="#92400e" stroke-width="2.5" />
+        <circle cx="26" cy="31" r="2.5" fill="#1c1917" />
+        <circle cx="38" cy="31" r="2.5" fill="#1c1917" />
+        <ellipse cx="32" cy="36" rx="3.2" ry="2.2" fill="#1c1917" />
+        <path d="M27 42 Q32 45 37 42" fill="none" stroke="#1c1917" stroke-width="2.2" stroke-linecap="round" />
+      </svg>
+    `;
+
+  const energyPercent = Math.min(
+    100,
+    Math.max(15, appState.currentLevel * 25 + Math.min(25, appState.totalQuestionsSolved * 8))
+  );
+
+  return `
+    <div class="buddy-card" role="status" aria-live="polite">
+      <div class="buddy-avatar ${mood === 'happy' ? 'buddy-happy' : mood === 'sad' ? 'buddy-sad' : ''}">
+        ${svgHtml}
+      </div>
+      <div class="buddy-info">
+        <div class="buddy-header">
+          <span class="buddy-name">Pip (Your Study Buddy)</span>
+          <span class="badge badge-accent">${LEVEL_NAMES[appState.currentLevel]}</span>
+        </div>
+        <p class="buddy-mood-text">${moodText}</p>
+        <div class="energy-track" title="Learning Energy Meter">
+          <div class="energy-fill" style="width: ${energyPercent}%;"></div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 function renderPracticeScreen(root) {
   const q = currentQuestion;
   const hintsToShow = q.hints.slice(0, appState.hintsUsedOnCurrent);
@@ -591,12 +669,8 @@ function renderPracticeScreen(root) {
 
   const nextHintNumber = appState.hintsUsedOnCurrent + 1;
   const hintButtonLabel =
-    nextHintNumber === 1
-      ? 'Need Help? Get Hint 1 (Time Clue)'
-      : nextHintNumber === 2
-      ? 'Get Hint 2 (Verb Rule Clue)'
-      : nextHintNumber === 3
-      ? 'Get Hint 3 (Reveal Full Answer)'
+    nextHintNumber <= PEDAGOGY_CONFIG.MAX_HINTS
+      ? `Get Hint ${nextHintNumber}`
       : 'All 3 Hints Shown';
 
   const decisionBannerHtml =
@@ -606,12 +680,12 @@ function renderPracticeScreen(root) {
         <h3>${
           uiFormState.lastEvaluation && uiFormState.lastEvaluation.isCorrect
             ? uiFormState.lastEvaluation.feedback
-            : 'Answer Revealed by Hint 3'
+            : 'Answer Shown'
         }</h3>
-        <p><strong>How Your Tutor Adapted: ${appState.lastTutorDecision.title}</strong></p>
+        <p><strong>${appState.lastTutorDecision.title}</strong></p>
         <p style="margin-bottom:0.75rem;">${appState.lastTutorDecision.detail}</p>
         <button type="button" class="btn-primary" id="btn-next-question">
-          Continue to Next Question →
+          Next Question →
         </button>
       </div>
     `
@@ -620,22 +694,20 @@ function renderPracticeScreen(root) {
   const recoveryBannerHtml = appState.inRecoveryMode
     ? `
       <div class="card-muted">
-        <strong>Confidence Rebuild Mode Active:</strong>
+        <strong>Building Steady Confidence:</strong>
         Solve <strong>${PEDAGOGY_CONFIG.RECOVERY_STREAK_REQUIRED} questions in a row without hints</strong>
-        (currently ${appState.consecutiveUnassistedCorrect} of ${PEDAGOGY_CONFIG.RECOVERY_STREAK_REQUIRED})
-        to move back up to the next difficulty level.
+        (${appState.consecutiveUnassistedCorrect} of ${PEDAGOGY_CONFIG.RECOVERY_STREAK_REQUIRED} done)
+        to move up to the next level.
       </div>
     `
     : '';
 
   root.innerHTML = `
+    ${renderStudyBuddyHtml()}
+
     <div class="progress-strip">
-      <span><strong>${LEVEL_NAMES[appState.currentLevel]}</strong></span>
-      <span>
-        Solved: <strong>${appState.totalQuestionsSolved}</strong>
-        · Retry Later Queue: <strong>${appState.retryQueue.length}</strong>
-        · Consecutive Hint-3 Reveals: <strong>${appState.consecutiveHint3Reveals}/${PEDAGOGY_CONFIG.REVEALS_BEFORE_RECAP}</strong>
-      </span>
+      <span>Questions Solved: <strong>${appState.totalQuestionsSolved}</strong></span>
+      <span>Retry Later List: <strong>${appState.retryQueue.length}</strong></span>
     </div>
 
     ${recoveryBannerHtml}
@@ -644,7 +716,7 @@ function renderPracticeScreen(root) {
       <div class="badge-row">
         <span class="badge badge-accent">${q.formatLabel}</span>
         <span class="badge">${q.contextTitle}</span>
-        ${q.isRetryItem ? '<span class="badge badge-warn">Retry Later Review Item</span>' : ''}
+        ${q.isRetryItem ? '<span class="badge badge-warn">Retry Later Item</span>' : ''}
       </div>
 
       <h2>${q.prompt}</h2>
@@ -664,7 +736,7 @@ function renderPracticeScreen(root) {
           ? `
           <div class="btn-row">
             <button type="button" class="btn-primary" id="btn-check-answer">
-              Check My Answer
+              Check Answer
             </button>
             <button
               type="button"
@@ -675,7 +747,7 @@ function renderPracticeScreen(root) {
               ${hintButtonLabel}
             </button>
             <button type="button" class="btn-secondary" id="btn-toggle-tool">
-              ${uiFormState.toolOpen ? 'Hide Time-Bridge Helper' : 'Open Time-Bridge & Verb Helper'}
+              ${uiFormState.toolOpen ? 'Hide Guide' : 'Guide'}
             </button>
           </div>
         `
@@ -699,10 +771,10 @@ function renderPracticeScreen(root) {
           Save &amp; Stop for Now
         </button>
         <button type="button" class="btn-secondary" id="btn-view-recap">
-          Open Basic Concepts Recap
+          Basic Recap
         </button>
         <button type="button" class="btn-secondary" id="btn-view-summary">
-          View My Progress
+          My Progress
         </button>
       </div>
     </div>

@@ -104,9 +104,9 @@ export const PRACTICE_QUESTION_BANK = [
       { id: 'c', text: 'have bought', isCorrect: false, tag: 'PREREQ' }
     ],
     hints: [
-      'Hint 1 (Time Clue): Look at the words "yesterday morning" at the end of the sentence. Is yesterday morning still happening, or is it completely finished?',
-      'Hint 2 (Rule Clue): Because "yesterday morning" is finished, we need the Simple Past verb form of "buy", without "has" or "have".',
-      'Hint 3 (Full Answer): The correct answer is "bought". Because "yesterday morning" is a closed past time, we say "My mother bought fresh tomatoes yesterday morning."'
+      'Hint 1: Look at the words "yesterday morning" at the end of the sentence. Is yesterday morning still happening, or is it already over?',
+      'Hint 2: Because "yesterday morning" is finished, use the past form of "buy" without "has" or "have".',
+      'Hint 3: The answer is "bought". We say: "My mother bought fresh tomatoes yesterday morning."'
     ],
     selfCheckPrompt: 'Look at the words "yesterday morning" in this sentence. What kind of time does it show?',
     selfCheckCorrectWindow: 'closed_past',
@@ -130,9 +130,9 @@ export const PRACTICE_QUESTION_BANK = [
       { id: 'c', text: 'have just rained', isCorrect: false, tag: 'PREREQ' }
     ],
     hints: [
-      'Hint 1 (Time Clue): The speaker says "Look at the wet road outside!" and "puddles are still full of water now." Does this action connect to right now?',
-      'Hint 2 (Rule Clue): For an action whose result we can see right now (with "It"), we use "has + just + V3 (rained)".',
-      'Hint 3 (Full Answer): The correct answer is "has just rained". It connects the recent rain to the wet road we see right now.'
+      'Hint 1: The speaker says "Look at the wet road outside!" and "puddles are still full of water now." This connects to right now.',
+      'Hint 2: When we can see the result right now (with "It"), we use "has + just + rained".',
+      'Hint 3: The answer is "has just rained". It connects the recent rain to the wet road we see right now.'
     ],
     selfCheckPrompt: 'Why does the speaker tell us that the puddles are still full of water right now?',
     selfCheckCorrectWindow: 'bridge_now',
@@ -153,9 +153,9 @@ export const PRACTICE_QUESTION_BANK = [
     correctVerbChoice: 'has not arrived',
     verbChoices: ['did not arrive yesterday', 'has not arrived', 'have not arrived'],
     hints: [
-      'Hint 1 (Time Clue): Notice the word "yet" and "we are not late!" They are standing at the bus stop right now.',
-      'Hint 2 (Rule Clue): With "yet" connecting up to right now, and singular "The school bus", use "has not + V3".',
-      'Hint 3 (Full Answer): Choose "Connected to Right Now" and "has not arrived". The sentence is: "The school bus has not arrived yet."'
+      'Hint 1: Notice the word "yet" and "we are not late!" They are waiting at the bus stop right now.',
+      'Hint 2: With "yet" connecting to right now, and singular "The school bus", use "has not + arrived".',
+      'Hint 3: Choose "Connected to Right Now" and "has not arrived". The sentence is: "The school bus has not arrived yet."'
     ],
     selfCheckPrompt: 'With the word "yet", is the waiting period finished, or does it continue up to right now?',
     selfCheckCorrectWindow: 'bridge_now',
@@ -178,9 +178,9 @@ export const PRACTICE_QUESTION_BANK = [
     correctVerbChoice: 'won',
     verbChoices: ['won', 'has won', 'have won'],
     hints: [
-      'Hint 1 (Time Clue): Check the time phrase at the end: "last Friday". Is last Friday still going on today?',
-      'Hint 2 (Rule Clue): When a sentence names a finished day like "last Friday", choose "Finished Past Time" and the Simple Past verb (V2) of "win".',
-      'Hint 3 (Full Answer): Choose "Finished Past Time" and "won". Because "last Friday" is over, we say "Our class team won the match last Friday."'
+      'Hint 1: Check the words at the end: "last Friday". Is last Friday still going on today?',
+      'Hint 2: When a sentence names a finished day like "last Friday", choose "Finished Past Time" and the past form of "win".',
+      'Hint 3: Choose "Finished Past Time" and "won". We say: "Our class team won the match last Friday."'
     ],
     selfCheckPrompt: 'Look at "last Friday". Is that day finished in the past, or is it still open today?',
     selfCheckCorrectWindow: 'closed_past',
@@ -201,9 +201,9 @@ export const PRACTICE_QUESTION_BANK = [
     correctVerbChoice: 'have already eaten',
     verbChoices: ['already ate yesterday', 'have already eaten', 'has already eaten'],
     hints: [
-      'Hint 1 (Time Clue): The speaker says "I am full right now" and uses "already". The past meal explains why they are full at this moment.',
-      'Hint 2 (Rule Clue): For "I" + an action with a present result right now, choose "Connected to Right Now" and "have + already + V3 (eaten)".',
-      'Hint 3 (Full Answer): Choose "Connected to Right Now" and "have already eaten". It explains why the speaker is full right now.'
+      'Hint 1: The speaker says "I am full right now" and uses "already". The meal explains why they feel full now.',
+      'Hint 2: For "I" when the result matters right now, choose "Connected to Right Now" and "have + already + eaten".',
+      'Hint 3: Choose "Connected to Right Now" and "have already eaten".'
     ],
     selfCheckPrompt: 'Why does the speaker mention eating lunch when someone offers them food right now?',
     selfCheckCorrectWindow: 'bridge_now',
@@ -227,9 +227,9 @@ export const PRACTICE_QUESTION_BANK = [
       { id: 'c', text: 'have repaired', isCorrect: false, tag: 'PREREQ' }
     ],
     hints: [
-      'Hint 1 (Time Clue): Look at the opening words: "Two days ago". Does "ago" point to a finished time in the past?',
-      'Hint 2 (Rule Clue): Any phrase with "ago" (two days ago, ten minutes ago) belongs in a finished past time box. Use Simple Past (V2).',
-      'Hint 3 (Full Answer): The correct answer is "repaired". With "Two days ago", we never use "has repaired".'
+      'Hint 1: Look at the opening words: "Two days ago". That time is already over.',
+      'Hint 2: Any phrase with "ago" belongs to a finished past time. Use the simple past form without "has" or "have".',
+      'Hint 3: The answer is "repaired". With "Two days ago", we say "my uncle repaired the broken chain."'
     ],
     selfCheckPrompt: 'What does the word "ago" ("Two days ago") tell us about when the action happened?',
     selfCheckCorrectWindow: 'closed_past',
@@ -254,9 +254,9 @@ export const PRACTICE_QUESTION_BANK = [
     requiredConceptKeywords: ['last sunday', 'finished', 'past', 'over', 'closed', 'yesterday'],
     modelExplanation: 'We should use "visited" (Simple Past) because "last Sunday" is a finished time in the past, so we cannot use "have visited".',
     hints: [
-      'Hint 1 (Time Clue): Look at the time phrase "last Sunday" at the end. Is last Sunday finished, or is it still today?',
-      'Hint 2 (Rule Clue): Because "last Sunday" is a finished past time, remove "have" and keep the Simple Past verb "visited". In your explanation, mention that "last Sunday" is finished/past.',
-      'Hint 3 (Full Answer): Correct verb: "visited". Explanation: Because "last Sunday" is a finished past time, we use Simple Past ("visited") instead of "have visited".'
+      'Hint 1: Look at "last Sunday" at the end of the sentence. Last Sunday is already over.',
+      'Hint 2: Because "last Sunday" is finished, drop "have" and use "visited". In your explanation, mention that "last Sunday" is finished in the past.',
+      'Hint 3: Correct verb: "visited". Explanation: Because "last Sunday" is a finished past time, we use "visited" instead of "have visited".'
     ],
     selfCheckPrompt: 'Why does "have visited" clash with the words "last Sunday"?',
     selfCheckCorrectWindow: 'closed_past',
@@ -279,9 +279,9 @@ export const PRACTICE_QUESTION_BANK = [
     requiredConceptKeywords: ['now', 'still', 'result', 'present', 'cannot read', 'searching'],
     modelExplanation: 'We use "has lost" because the result still affects him right now — he still does not have his glasses and cannot read now.',
     hints: [
-      'Hint 1 (Time Clue): Does Grandfather have his glasses right now, or is the result of losing them still true at this moment?',
-      'Hint 2 (Rule Clue): For "He" when the result still matters right now, use "has + V3 (lost)". In your explanation, mention that the result still affects him "now".',
-      'Hint 3 (Full Answer): Correct verb: "has lost". Explanation: We use "has lost" because the result is still true right now (he cannot read the newspaper now).'
+      'Hint 1: Grandfather is searching the table right now because his glasses are still missing.',
+      'Hint 2: For "He" when the result is still true right now, use "has lost". In your explanation, mention that he still cannot read right now.',
+      'Hint 3: Correct verb: "has lost". Explanation: We use "has lost" because the result is still true right now.'
     ],
     selfCheckPrompt: 'Why do we use "has lost" instead of just treating it as a closed past event?',
     selfCheckCorrectWindow: 'bridge_now',
@@ -304,9 +304,9 @@ export const PRACTICE_QUESTION_BANK = [
     requiredConceptKeywords: ['ago', 'two hours', 'finished', 'past', 'over', 'closed'],
     modelExplanation: 'We must use "submitted" because "two hours ago" is a finished time in the past.',
     hints: [
-      'Hint 1 (Time Clue): Look at the phrase "two hours ago". Does "ago" tell us about a finished past time?',
-      'Hint 2 (Rule Clue): Drop "have" and use Simple Past "submitted". In your explanation, state that "two hours ago" is a finished past time.',
-      'Hint 3 (Full Answer): Correct verb: "submitted". Explanation: Because "two hours ago" is a finished past time, we use Simple Past ("submitted"), not "have submitted".'
+      'Hint 1: Look at the words "two hours ago". That time is already finished.',
+      'Hint 2: Drop "have" and use "submitted". In your explanation, mention that "two hours ago" is a finished past time.',
+      'Hint 3: Correct verb: "submitted". Explanation: Because "two hours ago" is a finished past time, we use "submitted" instead of "have submitted".'
     ],
     selfCheckPrompt: 'What kind of time window does "two hours ago" create?',
     selfCheckCorrectWindow: 'closed_past',
@@ -379,10 +379,10 @@ export function generateDynamicQuestion(targetLevel, targetFocusArea, counter = 
       level: targetLevel,
       isGenerated: true,
       format: 'builder',
-      formatLabel: 'Time & Verb Builder (Adaptive Generated)',
+      formatLabel: 'Time & Verb Builder',
       focusArea: chosen.focusArea,
       expectedWindow: chosen.expectedWindow,
-      contextTitle: `${chosen.contextTitle} (Adaptive Task)`,
+      contextTitle: chosen.contextTitle,
       prompt: isClosed
         ? `${chosen.subject} ___ (${chosen.verbBase}) ${chosen.objectText} ${chosen.timeMarker}.`
         : `${chosen.subject} ___ (${chosen.verbBase}) ${chosen.objectText}.`,
@@ -391,15 +391,15 @@ export function generateDynamicQuestion(targetLevel, targetFocusArea, counter = 
       correctVerbChoice: isClosed ? chosen.verbPast : chosen.verbPerf,
       verbChoices: [chosen.verbPast, chosen.verbPerf, chosen.wrongPerfPlural],
       hints: [
-        `Hint 1 (Time Clue): Look closely at the time clue "${chosen.timeMarker}". Is that time completely over, or does the result touch right now?`,
-        `Hint 2 (Rule Clue): ${
+        `Hint 1: Look closely at "${chosen.timeMarker}". Is that time already over, or does the result matter right now?`,
+        `Hint 2: ${
           isClosed
-            ? `Because "${chosen.timeMarker}" is a finished past time, choose "Finished Past Time" and Simple Past (${chosen.verbPast}).`
-            : `Because the result is visible right now, choose "Connected to Right Now" and Present Perfect (${chosen.verbPerf}).`
+            ? `Because "${chosen.timeMarker}" is finished, choose "Finished Past Time" and "${chosen.verbPast}".`
+            : `Because the result is visible right now, choose "Connected to Right Now" and "${chosen.verbPerf}".`
         }`,
-        `Hint 3 (Full Answer): The correct time window is "${
+        `Hint 3: Choose "${
           isClosed ? 'Finished Past Time' : 'Connected to Right Now'
-        }" and the verb is "${isClosed ? chosen.verbPast : chosen.verbPerf}".`
+        }" and "${isClosed ? chosen.verbPast : chosen.verbPerf}".`
       ],
       selfCheckPrompt: `Look at "${chosen.timeMarker}". Does it describe a finished past time or something connected to right now?`,
       selfCheckCorrectWindow: chosen.expectedWindow,
@@ -407,8 +407,8 @@ export function generateDynamicQuestion(targetLevel, targetFocusArea, counter = 
         ? `Using "${chosen.verbPerf}" clashes with the finished past time "${chosen.timeMarker}".`
         : `Using Simple Past misses the connection to what is true right now.`,
       contrastTargetText: isClosed
-        ? `"${chosen.timeMarker}" is finished, so Simple Past ("${chosen.verbPast}") is required.`
-        : `Because the result holds right now, Present Perfect ("${chosen.verbPerf}") builds the bridge to now.`
+        ? `"${chosen.timeMarker}" is finished, so "${chosen.verbPast}" is required.`
+        : `Because the result holds right now, "${chosen.verbPerf}" builds the bridge to now.`
     };
   }
 
@@ -417,10 +417,10 @@ export function generateDynamicQuestion(targetLevel, targetFocusArea, counter = 
     level: targetLevel,
     isGenerated: true,
     format: 'mcq',
-    formatLabel: 'Multiple Choice (Adaptive Generated)',
+    formatLabel: 'Multiple Choice',
     focusArea: chosen.focusArea,
     expectedWindow: chosen.expectedWindow,
-    contextTitle: `${chosen.contextTitle} (Adaptive Task)`,
+    contextTitle: chosen.contextTitle,
     prompt: isClosed
       ? `${chosen.subject} ___ ${chosen.objectText} ${chosen.timeMarker}.`
       : `${chosen.subject} ___ ${chosen.objectText}.`,
@@ -432,13 +432,13 @@ export function generateDynamicQuestion(targetLevel, targetFocusArea, counter = 
       { id: 'c', text: chosen.wrongPerfPlural, isCorrect: false, tag: 'PREREQ' }
     ],
     hints: [
-      `Hint 1 (Time Clue): Look at "${chosen.timeMarker}". Ask yourself if the time box is closed or open right now.`,
-      `Hint 2 (Rule Clue): ${
+      `Hint 1: Look at "${chosen.timeMarker}". Ask yourself if that time is closed or still open right now.`,
+      `Hint 2: ${
         isClosed
-          ? `With finished time "${chosen.timeMarker}", pick the Simple Past verb without has/have.`
+          ? `With finished time "${chosen.timeMarker}", pick the past verb without has/have.`
           : `Because the result matters right now, pick has/have + V3.`
       }`,
-      `Hint 3 (Full Answer): The correct answer is "${isClosed ? chosen.verbPast : chosen.verbPerf}".`
+      `Hint 3: The answer is "${isClosed ? chosen.verbPast : chosen.verbPerf}".`
     ],
     selfCheckPrompt: `Does "${chosen.timeMarker}" belong to a finished past time or connect to right now?`,
     selfCheckCorrectWindow: chosen.expectedWindow,
