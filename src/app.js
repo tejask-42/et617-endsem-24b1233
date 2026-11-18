@@ -11,7 +11,7 @@ import {
   saveTheme
 } from './state.js';
 import {
-  EXAM_CARD,
+  PROJECT_INFO,
   LEVEL_NAMES,
   VERB_STUDIO_BANK,
   DIAGNOSTIC_QUESTIONS,
@@ -1066,37 +1066,37 @@ function renderSummaryScreen(root) {
 }
 
 // ============================================================================
-// SCREEN 7: ABOUT & EXAM CARD / AI SPECIFICATION (ID: 24b1233)
+// SCREEN 7: ABOUT & ADAPTIVE SYSTEM DETAILS (ID: 24b1233)
 // ============================================================================
 function renderAboutScreen(root) {
   root.innerHTML = `
     <section class="card">
-      <h2>About TimeBridge English &amp; Exam Card</h2>
-      <p><strong>Identity Token (Roll Number):</strong> <code>${EXAM_CARD.id}</code></p>
+      <h2>About TimeBridge English</h2>
+      <p><strong>Student Roll Number (Identity Token):</strong> <code>${PROJECT_INFO.id}</code></p>
       <ul>
-        <li><strong>Problem Statement (P):</strong> ${EXAM_CARD.problem}</li>
-        <li><strong>Topic (T):</strong> ${EXAM_CARD.topic}</li>
-        <li><strong>Learner Context (L):</strong> ${EXAM_CARD.learnerContext}</li>
-        <li><strong>Design Constraint (C):</strong> ${EXAM_CARD.constraint}</li>
+        <li><strong>Application Focus:</strong> ${PROJECT_INFO.appType}</li>
+        <li><strong>Subject Topic:</strong> ${PROJECT_INFO.topic}</li>
+        <li><strong>Intended Learner:</strong> ${PROJECT_INFO.learnerProfile}</li>
+        <li><strong>Session Structure:</strong> ${PROJECT_INFO.sessionDesign}</li>
       </ul>
 
-      <h3>Adaptive Decision Rule (P4 Design Challenge)</h3>
+      <h3>How the Adaptive Tutor Makes Decisions</h3>
       <ol>
-        <li><strong>Advance to Harder Question:</strong> When the learner answers correctly on the first try with 0 hints, the tutor advances the difficulty level (moving across Multiple Choice → Time &amp; Verb Builder → Open Explanation).</li>
-        <li><strong>Self-Identification Repair &amp; Retry Later Queue:</strong> When the learner makes an error, a 2-step card helps them first self-identify whether the sentence is a finished past time or connected to right now, then shows a side-by-side timeline explanation. Any question solved using Hints 1–2 (or after an error) is added to the <strong>Retry Later</strong> queue.</li>
-        <li><strong>3 Consecutive Hint-3 Reveals → Basic Concepts Recap &amp; Level Step-Down:</strong> If the learner cannot solve 3 consecutive questions and must use Hint 3 (which reveals the full answer), the tutor automatically opens the <strong>Basic Concepts Recap</strong>, decreases the difficulty level by 1, and requires <strong>2 consecutive unassisted correct answers</strong> before advancing back to a higher level.</li>
+        <li><strong>Advance to Harder Tasks:</strong> When you answer correctly on your first try with 0 hints, the tutor advances the difficulty level (moving across Multiple Choice → Time &amp; Verb Builder → Spot &amp; Explain the Error).</li>
+        <li><strong>Self-Identification Repair &amp; Retry Later Queue:</strong> When you make an error, a 2-step card helps you first spot whether the sentence describes a finished past time or connects to right now, then shows a side-by-side timeline explanation. Any question solved using Hints 1–2 (or after an error) is added to your <strong>Retry Later</strong> queue.</li>
+        <li><strong>3 Consecutive Full-Answer Reveals → Basic Concepts Recap &amp; Level Step-Down:</strong> If you cannot solve 3 questions in a row and must use Hint 3 (which reveals the full answer), the tutor automatically opens the <strong>Basic Concepts Recap</strong>, lowers the difficulty level by 1, and waits for <strong>2 consecutive unassisted correct answers</strong> before advancing back to a higher level.</li>
       </ol>
     </section>
 
     <section class="card">
-      <h3>AI Functionality &amp; Offline Deterministic Engine Specification</h3>
+      <h3>Question Generation &amp; Explanation Evaluation Engine</h3>
       <p><strong>1. ${AI_FUNCTIONALITY_SPEC.feature1.name}:</strong> ${AI_FUNCTIONALITY_SPEC.feature1.whatItDoes}</p>
       <pre style="white-space:pre-wrap;font-size:0.82rem;background:var(--surface-muted);padding:0.75rem;border-radius:4px;border:1px solid var(--border);">${AI_FUNCTIONALITY_SPEC.feature1.sampleInputPrompt}</pre>
-      <p><strong>Output Verification &amp; Fallback:</strong> ${AI_FUNCTIONALITY_SPEC.feature1.verificationCheck} ${AI_FUNCTIONALITY_SPEC.feature1.fallbackBehaviour}</p>
+      <p><strong>Output Verification &amp; Offline Fallback:</strong> ${AI_FUNCTIONALITY_SPEC.feature1.verificationCheck} ${AI_FUNCTIONALITY_SPEC.feature1.fallbackBehaviour}</p>
 
       <p><strong>2. ${AI_FUNCTIONALITY_SPEC.feature2.name}:</strong> ${AI_FUNCTIONALITY_SPEC.feature2.whatItDoes}</p>
       <pre style="white-space:pre-wrap;font-size:0.82rem;background:var(--surface-muted);padding:0.75rem;border-radius:4px;border:1px solid var(--border);">${AI_FUNCTIONALITY_SPEC.feature2.sampleInputPrompt}</pre>
-      <p style="margin-bottom:0;"><strong>Output Verification &amp; Fallback:</strong> ${AI_FUNCTIONALITY_SPEC.feature2.verificationCheck} ${AI_FUNCTIONALITY_SPEC.feature2.fallbackBehaviour}</p>
+      <p style="margin-bottom:0;"><strong>Output Verification &amp; Offline Fallback:</strong> ${AI_FUNCTIONALITY_SPEC.feature2.verificationCheck} ${AI_FUNCTIONALITY_SPEC.feature2.fallbackBehaviour}</p>
     </section>
   `;
 }

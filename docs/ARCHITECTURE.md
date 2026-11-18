@@ -1,36 +1,35 @@
-# Architecture (`P4 · P4-T7 · L1 · C4 · ID: 24b1233`)
+# Application Architecture
 
 ## 1. Stack & Hosting
-- **Stack:** Plain HTML5 + CSS3 + Vanilla ES Modules (`type="module"`). Zero build step so every line is directly inspectable and live-tweakable during the viva.
-- **Hosting:** Netlify (`https://et617-24b1233.netlify.app`), deployed via `netlify deploy --prod --dir=.` and linked to GitHub (`https://github.com/tejask-42/et617-endsem-24b1233`).
-- **Persistence:** Browser `localStorage` under key `et617_24b1233_p4_state` to support **C4 (10-minute sessions with instant stop-and-resume)**.
+- **Stack:** HTML5, CSS3, and Vanilla ES Modules (`type="module"`). No build step or external bundler is required, keeping every function easy to inspect and modify live.
+- **Hosting:** Netlify (`https://et617-24b1233.netlify.app`).
+- **Persistence:** Browser `localStorage` (`et617_24b1233_tutor_state` and `et617_24b1233_theme`) for instant stop-and-resume support and dark mode preference.
 
-## 2. File Tree & One-Line Responsibilities
-- `index.html` — Root shell with C4 10-minute session header, navigation tabs (Learn/Practice, Time-Bridge Tool, Summary/AI Spec, About), main screen stage, and permanent footer with `ID: 24b1233`.
-- `styles.css` — Minimal paper-and-ink stylesheet (`#FAF9F6` background, `#1E5E4B` forest accent, 360px-first layout, >=44px touch targets).
-- `src/content.js` — Diagnostic questions, adaptive question generator templates across 3 formats (MCQ, Time-Tag + Verb Builder, Open Explanation), verb conjugation table (`V1/V2/V3`), and M1/M2 contrastive timeline cards.
-- `src/pedagogy.js` — Pure pedagogical engine: answer evaluation, explanation rubric + AI generator/fallback, 3-step progressive hint ladder, retry-later queue, 3-consecutive-reveal level step-down, and 2-correct mastery stabilization gate.
-- `src/state.js` — Single learner-state store (`createInitialState`, `loadState`, `saveState`, `resetState`, C4 pause/resume timestamp & elapsed timer).
-- `src/app.js` — DOM rendering, user event bindings, interactive Time-Bridge & Verb Studio tool (`T6`), and live decision-rule banner.
+## 2. File Structure
+- `index.html` — Main layout shell, top navigation bar, dark-mode toggle button, main screen container, and persistent footer showing roll number `24b1233`.
+- `styles.css` — Light and Dark theme variables, responsive mobile-first cards, highlighted time/verb callouts, and button styles.
+- `src/content.js` — Warm-up questions, practice question bank across three formats (Multiple Choice, Time & Verb Builder, Spot & Explain the Error), everyday verb table, and dynamic question generator.
+- `src/pedagogy.js` — Pure pedagogical logic: answer evaluation across all three formats, 3-step progressive hint ladder, retry-later queue management, 3-consecutive-reveal level step-down with Basic Recap trigger, and 2-unassisted-correct confidence rebuild streak.
+- `src/state.js` — Learner state creation, `localStorage` load/save/reset functions, and theme storage.
+- `src/app.js` — Screen rendering (`Home`, `Learn the Idea`, `Practice`, `Basic Recap`, `My Progress`, `About`), event handlers, and the interactive Time-Bridge & Verb Explorer tool.
 
-## 3. Data Flow (Numbered Steps)
-1. **User Action:** Learner clicks `"Check Answer"`, `"Get Hint (1/2/3)"`, or `"Pause 10-Min Session (C4)"` in `index.html`.
-2. **Event Handler (`src/app.js`):** Reads current input (selected MCQ option, Time-Tag + verb slot, or 1-sentence explanation text) and elapsed item time.
+## 3. Data Flow
+1. **Learner Action:** Learner clicks `"Check My Answer"`, `"Get Hint"`, `"Save & Stop for Now"`, or switches the Time-Bridge helper.
+2. **Event Handler (`src/app.js`):** Collects current form inputs (chosen option, time-window + verb chip, or typed verb + explanation sentence).
 3. **Pedagogy Engine (`src/pedagogy.js`):**
-   - Evaluates answer and classifies outcome (`CORRECT`, `M1_FINISHED_TIME_WITH_PERF`, `M2_PRESENT_RESULT_WITH_PAST`, `PREREQ_FORM_ERROR`, or `HINT_3_REVEALED`).
-   - Applies the **P4 3-Way Decision Rule** (`1_HARDER_QUESTION`, `2_ALTERNATIVE_EXPLANATION` + push to `retryQueue`, or `3_PREREQUISITE_INSTRUCTION` + decrease `currentLevel` + set `inRecoveryMode = true` requiring `2` consecutive unassisted correct answers).
-4. **State Update & Save (`src/state.js`):** Updates `state` and persists immediately to `localStorage['et617_24b1233_p4_state']`.
-5. **Render (`src/app.js`):** Redraws feedback card, contrastive timeline explanation, hint ladder, C4 progress bar, and next adaptive task.
+   - Evaluates the response (`evaluateLearnerResponse`).
+   - Updates level, retry queue, and streak counters (`applyAdaptiveDecisionRule`).
+4. **State Persistence (`src/state.js`):** Saves the updated state object to `localStorage`.
+5. **View Update (`src/app.js`):** Re-renders feedback, self-check prompts, hint ladder, or transitions to the Basic Recap screen.
 
-## 4. Where to Change What (Viva Quick-Reference Table)
+## 4. Where to Change What
 
-| What to Change | File | Constant / Function / Key |
+| Change Needed | File | Location / Function |
 | :--- | :--- | :--- |
-| Max hints per question (default `3`, where 3rd reveals answer) | `src/pedagogy.js` | `PEDAGOGY_CONFIG.MAX_HINTS` & `getNextHint()` |
-| Consecutive Hint-3 reveals before Prerequisite Recap & Level Step-Down (default `3`) | `src/pedagogy.js` | `PEDAGOGY_CONFIG.REVEALS_BEFORE_RECAP` (`3`) in `applyAdaptiveDecisionRule()` |
-| Consecutive unassisted correct answers required in recovery mode before leveling up (default `2`) | `src/pedagogy.js` | `PEDAGOGY_CONFIG.RECOVERY_CORRECT_STREAK` (`2`) in `applyAdaptiveDecisionRule()` |
-| C4 Session target duration (default `10` minutes = `600` seconds) | `src/state.js` | `SESSION_LIMIT_SECONDS = 600` |
-| `localStorage` persistence key | `src/state.js` | `STORAGE_KEY = 'et617_24b1233_p4_state'` |
-| Misconception M1 / M2 feedback & questions | `src/content.js` | `MISCONCEPTIONS`, `CORE_QUESTIONS`, `TEMPLATE_BANK` |
-| Theme colours & spacing tokens | `styles.css` | `:root` CSS variables (`--bg`, `--accent`, `--border`) |
-| Identity token (`24b1233`) display | `index.html` & `src/app.js` | Footer `#identity-footer` & `renderAboutScreen()` |
+| Maximum hints per question (default `3`, where 3rd reveals full answer) | `src/pedagogy.js` | `PEDAGOGY_CONFIG.MAX_HINTS` |
+| Consecutive Hint-3 answer reveals before Basic Recap & level step-down (default `3`) | `src/pedagogy.js` | `PEDAGOGY_CONFIG.REVEALS_BEFORE_RECAP` in `applyAdaptiveDecisionRule()` |
+| Consecutive unassisted correct answers needed in Confidence Rebuild Mode to level up (default `2`) | `src/pedagogy.js` | `PEDAGOGY_CONFIG.RECOVERY_STREAK_REQUIRED` in `applyAdaptiveDecisionRule()` |
+| `localStorage` state key | `src/state.js` | `STORAGE_KEY` |
+| Practice questions, warm-up items, and dynamic question templates | `src/content.js` | `DIAGNOSTIC_QUESTIONS`, `PRACTICE_QUESTION_BANK`, `DYNAMIC_TEMPLATES` |
+| Light and Dark theme colors | `styles.css` | `:root` and `html[data-theme="dark"]` |
+| Roll number (`24b1233`) in footer and About page | `index.html` & `src/app.js` | `#identity-footer` & `renderAboutScreen()` |

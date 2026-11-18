@@ -1,12 +1,12 @@
 // src/content.js
-// Rich everyday + story ESL content for Simple Past vs Present Perfect across 3 question formats
+// Everyday ESL learning content for Simple Past vs Present Perfect across 3 question formats
 
-export const EXAM_CARD = {
+export const PROJECT_INFO = {
   id: '24b1233',
-  problem: 'P4 — Adaptive tutor with automatic question generation',
-  topic: 'P4-T7 — English tenses: simple past vs present perfect (ESL)',
-  learnerContext: 'L1 — Class 6–8 student in a rural government school, regional-language medium, uses a parent\'s Android phone for about 30 minutes in the evening',
-  constraint: 'C4 — 10-minute sessions (one complete learning sequence fits in 10 minutes; stop and resume where they left off)'
+  appType: 'Adaptive English Tutor with Automatic Question Generation',
+  topic: 'English Tenses: Simple Past vs Present Perfect (ESL)',
+  learnerProfile: 'Class 6–8 student in a rural government school (regional-language medium), practicing on a parent\'s Android phone for short evening sessions',
+  sessionDesign: 'Short, self-contained 10-minute learning sequences with instant stop-and-resume support'
 };
 
 export const LEVEL_NAMES = {

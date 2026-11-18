@@ -256,7 +256,7 @@ export function selectNextQuestion(state) {
   return generateDynamicQuestion(state.currentLevel, focus, genCount);
 }
 
-// Deliverable D6: AI Functionality Specification (Prompt, Input, Output Check, and Offline Fallback)
+// AI & Deterministic Question Generation / Explanation Evaluation Specification
 export const AI_FUNCTIONALITY_SPEC = {
   feature1: {
     name: 'Adaptive Everyday Question Generator',
