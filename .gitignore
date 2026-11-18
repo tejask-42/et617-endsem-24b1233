@@ -1,0 +1,8 @@
+﻿EXAM_PLAYBOOK.md
+resources/
+.tmp/
+.netlify/
+node_modules/
+dist/
+.env
+.env.*
